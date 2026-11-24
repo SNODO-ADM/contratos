@@ -8,14 +8,15 @@
  */
 (function () {
   'use strict';
-  var CHAVE = 'snodo_versao_aceita';
+  var CHAVE_PADRAO = 'snodo_versao_aceita';
+  function chave() { return (cfg && cfg.chave) || CHAVE_PADRAO; }
   var ORIGEM_APP = /^https:\/\/[a-z0-9-]+\.googleusercontent\.com$/;
   var cfg = null, info = { atual: null, anterior: null }, escolha = null, respondeu = false, vigia = null;
   var iframe = document.getElementById('app');
   var splash = document.getElementById('splash');
 
-  function ler() { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } }
-  function gravar(v) { try { if (v) localStorage.setItem(CHAVE, v); } catch (e) { /* sem armazenamento: só não lembra */ } }
+  function ler() { try { return localStorage.getItem(chave()); } catch (e) { return null; } }
+  function gravar(v) { try { if (v) localStorage.setItem(chave(), v); } catch (e) { /* sem armazenamento: só não lembra */ } }
   function msg(t) { document.getElementById('splash-msg').textContent = t; }
   function aviso(t) {
     var a = document.getElementById('aviso');
@@ -86,6 +87,6 @@
 
   fetch('config.json', { cache: 'no-store' })
     .then(function (r) { return r.json(); })
-    .then(function (c) { cfg = c; return abrir(); })
+    .then(function (c) { cfg = c; if (!cfg.canais || !cfg.canais.atual) { msg('Este ambiente ainda não foi configurado.'); return null; } return abrir(); })
     .catch(function () { msg('Não foi possível carregar o SNODO Contracts. Verifique a conexão e recarregue a página.'); });
 })();

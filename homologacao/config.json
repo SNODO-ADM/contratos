@@ -1,0 +1,11 @@
+{
+  "app": "SNODO Contracts",
+  "ambiente": "HOMOLOGACAO",
+  "chave": "snodo_hml_versao_aceita",
+  "canais": {
+    "atual": "AKfycbzGLyBie5g3r-91Xu2-lnVOrcQJMq2tDwat18nPgzSaQWaKbs7c99q4g6fJBuinnd8GWg",
+    "anterior": ""
+  },
+  "base_info": "https://script.google.com/macros/s/",
+  "base_app": "https://script.google.com/a/macros/snodo.com.br/s/"
+}
